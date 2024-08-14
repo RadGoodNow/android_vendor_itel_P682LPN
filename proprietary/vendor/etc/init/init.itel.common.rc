@@ -1,0 +1,85 @@
+on property:persist.sys.device_provisioned=1 && property:persist.vendor.cam.country=404 && property:persist.vendor.dualapp.support=yes
+    setprop ro.com.google.rlz_ap_whitelist YA
+    setprop ro.com.google.rlzbrandcode TSSN
+
+on property:persist.sys.device_provisioned=1 && property:persist.sys.oobe_country=IN && property:persist.vendor.dualapp.support=yes
+    setprop ro.com.google.rlz_ap_whitelist YA
+    setprop ro.com.google.rlzbrandcode TSSN
+
+on property:persist.vendor.cam.country=*
+    setprop persist.vendor.country ${persist.vendor.cam.country}
+
+ on init
+    insmod ${ro.vendor.ko.mount.point}/odmko/adaptive-ts.ko
+
+on post-fs
+    restorecon /tranfs/
+    chown system system /tranfs/
+    chmod 660 /dev/tranlog
+    chown root system /dev/tranlog
+    insmod ${ro.vendor.ko.mount.point}/odmko/adaptive-ts.ko
+
+on boot
+    chmod 0664 /sys/devices/platform/extcon-gpio/extcon_hostenable
+    chown system system /sys/devices/platform/extcon-gpio/extcon_hostenable
+    chmod 0664 /sys/devices/platform/extcon-gpio/extcon_otg_status
+    chown system system /sys/devices/platform/extcon-gpio/extcon_otg_status
+    chmod 0664 /sys/devices/platform/extcon-gpio/extcon_is_support_otg
+    chown system system /sys/devices/platform/extcon-gpio/extcon_is_support_otg
+    chmod 0664 /proc/lcd_cmd/display_timings
+    chown system system /proc/lcd_cmd/display_timings
+    chmod 0664 /proc/lcd_cmd/power_off_sequence
+    chown system system /proc/lcd_cmd/power_off_sequence
+    chmod 0664 /proc/lcd_cmd/power_on_sequence
+    chown system system /proc/lcd_cmd/power_on_sequence
+    chmod 0664 /proc/lcd_cmd/suspend_cmd
+    chown system system /proc/lcd_cmd/suspend_cmd
+    chmod 0664 /proc/lcd_cmd/resume_cmd
+    chown system system /proc/lcd_cmd/resume_cmd
+    chmod 0664 /proc/lcd_cmd/init_cmd
+    chown system system /proc/lcd_cmd/init_cmd
+    chown system system /sys/class/power_supply/battery/transsion_charge_type
+    chown system system /sys/transsion/misc/fp_match
+    chmod 0666 /sys/class/power_supply/battery/thermal_current
+    chown system system /sys/class/power_supply/battery/thermal_current
+    chmod 0664 /sys/class/backlight/sprd_backlight/cabc_adaption
+    chown system system /sys/class/backlight/sprd_backlight/cabc_adaption
+    chmod 0664 /sys/class/backlight/sprd_backlight/brightness_ext
+    chown system system /sys/class/backlight/sprd_backlight/brightness_ext
+    chown system system /sys/class/sprd_sensorhub_tp/device/psensor_enable
+    chmod 660 /sys/class/sprd_sensorhub_tp/device/psensor_enable
+    chown system system /sys/class/sprd_sensorhub_tp/device/psensor_flush
+    chmod 660 /sys/class/sprd_sensorhub_tp/device/psensor_flush
+    restorecon -R /sys/board_properties/virtualkeys.adaptive_ts
+    # add for sleep_mode
+    chmod 0664 /sys/class/switch/sleep_mode/enable_sleep_mode
+    chown system system /sys/class/switch/sleep_mode/enable_sleep_mode
+    chmod 0664 /sys/class/switch/sleep_mode/start_seconds
+    chown system system /sys/class/switch/sleep_mode/start_seconds
+    chmod 0664 /sys/class/switch/sleep_mode/end_seconds
+    chown system system /sys/class/switch/sleep_mode/end_seconds
+    chmod 0664 /sys/chipone-tddi/misc/read_reg
+    chown system system /sys/chipone-tddi/misc/read_reg
+    chmod 0666 /dev/st21nfc
+    chown root system /dev/st21nfc
+#SR_18602662 add multi device name 20210514 start
+on boot && property:persist.sys.tran.device.name=*
+    chmod a+x config/usb_gadget/g1
+    chmod a+x config/usb_gadget/g1/strings/0x409
+    chmod 0666 /config/usb_gadget/g1/strings/0x409/product
+    #write /config/usb_gadget/g1/strings/0x409/product ${ro.vendor.tran.device.name}
+#SR_18602662 add multi device name 20210514 end
+    #add for battery_aging
+    chown system system /sys/devices/platform/tran_battery_aging/AGING_CALCULATE
+    chown system system /sys/devices/platform/tran_battery_aging/AGING_RESET 
+
+on factorytest-start
+    insmod ${ro.vendor.ko.mount.point}/odmko/adaptive-ts.ko
+    chown system system /sys/class/sprd_sensorhub_tp/device/psensor_enable
+    chmod 660 /sys/class/sprd_sensorhub_tp/device/psensor_enable
+    chown system system /sys/class/sprd_sensorhub_tp/device/psensor_flush
+    chmod 660 /sys/class/sprd_sensorhub_tp/device/psensor_flush
+
+# add by xingui.yang for itel debug mode
+on property:ro.boot.iteldebug=1 && property:ro.debuggable=0
+    start console

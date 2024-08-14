@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modem_info>
+	<partion_cnt val="4"/>
+	<partion_item>
+		<partition00 base="0x62010000" size="0x028000" name="sp_aon_iram"    mini_dump_flag="1"/>
+		<partition01 base="0x62038000" size="0x026000" name="sp_aon_dram"    mini_dump_flag="1"/>
+		<partition02 base="0x65003400" size="0x00a000" name="pubcp_aon_iram" mini_dump_flag="0"/>
+		<partition03 base="0x88040000" size="0x200000" name="sp_ddr"         mini_dump_flag="0"/>
+	</partion_item>
+</modem_info>

@@ -1,0 +1,19 @@
+on post-fs
+    write /dev/kmsg "woodpecker: enter post-fs"
+    insmod ${ro.vendor.ko.mount.point}/odmko/cdfinger_fp.ko
+
+on post-fs-data
+#add for cdfinger fingerprint
+    chmod 666 /dev/fpsdev0
+    chown system system /dev/fpsdev0
+    chmod 666 /dev/trusty-ipc-dev0
+    chown system system /dev/trusty-ipc-dev0
+				
+on factorytest
+    insmod ${ro.vendor.ko.mount.point}/odmko/cdfinger_fp.ko
+
+on factorytest-start
+    chmod 666 /dev/fpsdev0
+    chown system system /dev/fpsdev0
+    chmod 666 /dev/trusty-ipc-dev0
+    chown system system /dev/trusty-ipc-dev0

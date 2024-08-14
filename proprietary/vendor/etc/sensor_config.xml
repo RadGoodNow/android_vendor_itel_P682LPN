@@ -1,0 +1,60 @@
+<root>
+  <!-->
+  sensor id 0
+  <-->
+      <CameraModuleCfg>
+        <SlotId>0</SlotId>
+        <SensorName>s5k3l6</SensorName>
+        <Facing>BACK</Facing>
+        <Orientation>90</Orientation>
+        <Resource_cost>100</Resource_cost>
+        <VCM>
+            <AfName>gt9772</AfName>
+            <Mode>0</Mode>
+        </VCM>
+        <OTP>
+            <E2prom>
+                <OtpName>s5k3l6_common</OtpName>
+                 <I2cAddr>0xa0</I2cAddr>
+                <E2promNum>0</E2promNum>
+                <E2promSize>8192</E2promSize>
+            </E2prom>
+        </OTP>
+        <TuningParameter>
+            <TuningName>s5k3l6_1625</TuningName>
+        </TuningParameter>
+      </CameraModuleCfg>
+  <!-->
+    sensor id 1
+  <-->
+      <CameraModuleCfg>
+        <SlotId>1</SlotId>
+        <SensorName>hi556</SensorName>
+        <Facing>FRONT</Facing>
+        <Orientation>270</Orientation>
+        <Resource_cost>100</Resource_cost>
+        <TuningParameter>
+            <TuningName>hi556_1702</TuningName>
+        </TuningParameter>
+      </CameraModuleCfg>
+  <!-->
+  sensor id 2
+  <-->
+	<CameraModuleCfg>
+		<SlotId>2</SlotId>
+		<SensorName>gc6153</SensorName>
+		<Facing>BACK</Facing>
+		<Orientation>90</Orientation>
+		<Resource_cost>0</Resource_cost>
+	</CameraModuleCfg>
+  <!-->
+  sensor id 2
+  <-->
+      <CameraModuleCfg>
+        <SlotId>2</SlotId>
+        <SensorName>photo_resistor</SensorName>
+        <Facing>BACK</Facing>
+        <Orientation>270</Orientation>
+        <Resource_cost>0</Resource_cost>
+      </CameraModuleCfg>
+  </root>
